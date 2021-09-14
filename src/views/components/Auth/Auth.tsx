@@ -4,12 +4,8 @@ import { TabButton } from '../../ui/TabButton';
 import { AuthForm } from '../AuthForm';
 import { AuthTitle } from '../../ui/AuthTitle';
 
-interface AuthProps {
-  setRender: (value: string) => void;
-}
-
-const Auth: React.FC<AuthProps> = ({ setRender }) => {
-  const [isClick, setIsClick] = useState<boolean>(true);
+const Auth: React.FC<{ isRegister: boolean }> = ({ isRegister }) => {
+  const [isClick, setIsClick] = useState<boolean>(isRegister);
 
   const setClick = () => {
     setIsClick(!isClick);
@@ -29,7 +25,7 @@ const Auth: React.FC<AuthProps> = ({ setRender }) => {
             Log In
           </TabButton>
         </ButtonBox>
-        <AuthForm setRender={setRender} isLogin={isClick} />
+        <AuthForm isLogin={isClick} />
       </ContentBox>
     </AuthBox>
   );

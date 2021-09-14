@@ -8,7 +8,7 @@ export interface AuthInput extends FieldRenderProps<string> {
 }
 
 export enum AuthRoute {
-  AUTH = 'AUTH',
-  RESET = 'RESET',
-  NEW_PASSWORD = 'NEW_PASSWORD',
+  reset = 'reset',
+  login = 'login',
+  newPassword = 'newPassword',
 }

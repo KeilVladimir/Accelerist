@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface ButtonProps {
-  onClick: () => void;
+  onClick?: () => void;
   disable?: boolean;
 }
 
@@ -25,7 +25,6 @@ const ButtonStyle = styled.button`
   font-size: 16px;
   line-height: 23px;
   justify-content: center;
-
   :hover {
     background-color: #51c2ee;
     transition: 0.3s;
@@ -38,6 +37,7 @@ const ButtonStyle = styled.button`
   :disabled {
     background-color: #ceedf9;
     color: #2baee0;
+    cursor: not-allowed;
   }
 `;
 

@@ -7,8 +7,8 @@ import { SocialIcon } from '../../ui/icons/social';
 import { CheckBox } from '../../ui/CheckBox';
 import { required } from '../../../helpers/validate';
 import { Button } from '../../ui/Button';
+import { Link } from 'react-router-dom';
 import { AuthRoute } from '../../../types';
-
 interface FormState {
   login?: string;
   password: string;
@@ -16,16 +16,12 @@ interface FormState {
 
 interface AuthFormProps {
   isLogin?: boolean;
-  setRender: (value: string) => void;
+  setRender?: (value: string) => void;
 }
 
-const AuthForm: React.FC<AuthFormProps> = ({ isLogin, setRender }) => {
+const AuthForm: React.FC<AuthFormProps> = ({ isLogin }) => {
   const onSubmit = (values: FormState) => {
     console.log(values);
-  };
-
-  const setAuth = () => {
-    setRender(AuthRoute.RESET);
   };
 
   return (
@@ -76,7 +72,10 @@ const AuthForm: React.FC<AuthFormProps> = ({ isLogin, setRender }) => {
                   <CheckBox />
                   <CheckText>Remember</CheckText>
                 </CheckContainer>
-                <Forgot onClick={setAuth}> Forgot Password?</Forgot>
+                <ForgotLink to={'/' + AuthRoute.reset}>
+                  {' '}
+                  Forgot Password?
+                </ForgotLink>
               </PasswordSettings>
             )}
             <Button onClick={handleSubmit} disable={hasValidationErrors}>
@@ -109,6 +108,13 @@ const RulesText = styled.p`
   font-size: 12px;
   color: #737373;
   box-sizing: border-box;
+`;
+
+const ForgotLink = styled(Link)`
+  text-decoration: none;
+  font-size: 12px;
+  color: #737373;
+  cursor: pointer;
 `;
 
 const RulesLink = styled.a`
@@ -167,10 +173,4 @@ const CheckText = styled.p`
   font-size: 12px;
 `;
 
-const Forgot = styled.a`
-  text-decoration: none;
-  font-size: 12px;
-  color: #737373;
-  cursor: pointer;
-`;
 export default AuthForm;

@@ -46,6 +46,8 @@ const NewPasswordBox = styled.div`
   @media only screen and (max-width: 587px) {
     max-width: 343px;
     padding: 16px 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
   max-width: 454px;
   background: rgb(255, 255, 255);
@@ -53,6 +55,7 @@ const NewPasswordBox = styled.div`
   padding: 40px;
   margin-top: 72px;
   width: 100%;
+  height: 100%;
   margin-right: 15px;
   margin-left: 15px;
 `;
