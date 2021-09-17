@@ -34,6 +34,7 @@ module.exports = {
         jsxBracketSameLine: true,
         singleQuote: true,
         trailingComma: 'all',
+        endOfLine: 'auto',
       },
     ],
     '@typescript-eslint/explicit-module-boundary-types': 'off',
