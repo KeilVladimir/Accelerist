@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AuthForm } from './AuthForm';
+import { AuthForm } from './components/AuthForm';
 import { AuthTitle } from 'ui/AuthTitle';
 import styled from 'styled-components';
 
