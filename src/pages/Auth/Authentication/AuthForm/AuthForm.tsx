@@ -1,14 +1,14 @@
 import React from 'react';
 import { Form, Field } from 'react-final-form';
-import { Input } from 'ui/Input/index';
+import { Input } from 'ui/Input';
 import styled from 'styled-components';
 import { validateEmail } from 'helpers/validate';
 import { SocialIcon } from 'ui/icons/social';
 import { CheckBox } from 'ui/CheckBox';
-import { required } from '../../../helpers/validate';
+import { required } from '../../../../helpers/validate';
 import { Button } from 'ui/Button';
 import { Link } from 'react-router-dom';
-import { AuthRoute } from '../../../types';
+import { AuthRoute } from '../../../../types';
 import { theme } from 'ui/Button/themes';
 
 interface FormState {

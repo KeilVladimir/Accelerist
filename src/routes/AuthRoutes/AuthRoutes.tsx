@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import { AuthRoute } from 'types';
 import { Reset } from 'pages/Auth/Reset';
-import { Auth } from 'pages/Auth';
+import { Auth } from 'pages/Auth/Authentication';
 import { NewPassword } from 'pages/Auth/NewPassword';
 import { AuthLayout } from '../../layouts/AuthLayout';
 
