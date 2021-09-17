@@ -1,9 +1,9 @@
 import { FieldRenderProps } from 'react-final-form';
 
 export interface AuthInput extends FieldRenderProps<string> {
-  placeholder: string;
-  label: string;
-  isPassword: boolean;
+  placeholder?: string;
+  label?: string;
+  isPassword?: boolean;
   isError?: boolean;
 }
 
