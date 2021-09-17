@@ -1,8 +1,8 @@
 import './App.css';
-import { Authorization } from './screens/Authorization';
+import IndexRoutes from './routes';
 
 function App() {
-  return <Authorization />;
+  return <IndexRoutes />;
 }
 
 export default App;

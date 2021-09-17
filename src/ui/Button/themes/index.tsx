@@ -1,0 +1,42 @@
+export const theme = {
+  Primary: {
+    color: 'white',
+    borderRadius: '6px',
+    hover: {
+      background: '#51C2EE',
+      transition: '0.3s',
+    },
+    width: '100%',
+    backgroundColor: '#2baee0',
+    display: 'flex',
+    alignItems: 'center',
+    height: '46px',
+    border: 'none',
+    fontSize: '16px',
+    lineHeight: '23px',
+    justifyContent: 'center',
+    focus: {
+      backgroundColor: '#1da7dc',
+    },
+    disabled: {
+      backgroundColor: '#ceedf9',
+      color: '#2BAEE0',
+      cursor: 'not-allowed',
+    },
+  },
+  Opacity: {
+    width: '145px',
+    background: 'rgba(18, 36, 52, 0.15)',
+    borderRadius: '6px',
+    height: '36px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    border: ' none',
+    marginTop: '32px',
+    fontWeight: '500',
+    fontSize: '12px',
+    lineHeight: '150%',
+    color: 'white',
+  },
+};
