@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import { AuthTitle } from 'ui/AuthTitle';
 import styled from 'styled-components';
 import { Field, Form } from 'react-final-form';
@@ -7,11 +7,27 @@ import { validateEmail } from 'helpers/validate';
 import { Button } from 'ui/Button';
 import { Link } from 'react-router-dom';
 import { theme } from 'ui/Button/themes';
-const Reset: React.FC = () => {
-  const [isLinked, setIsLinked] = useState<boolean>(false);
+import { useDispatch, useSelector } from 'react-redux';
+import { sendEmailAction } from 'store/ducks/session/actions';
+import { getTimer } from 'store/ducks/session/selectors';
+import { Timer } from 'ui/Timer';
 
-  const onSubmit = (values: string) => {
+const Reset: FC = () => {
+  const [isLinked, setIsLinked] = useState<boolean>(false);
+  const [mail, setMail] = useState<{ email: string }>({ email: '' });
+
+  const dispatch = useDispatch();
+
+  const isTimer = useSelector(getTimer);
+
+  const resent = () => {
+    dispatch(sendEmailAction(mail));
+  };
+
+  const onSubmit = (values: { email: string }) => {
     setIsLinked(!isLinked);
+    setMail(values);
+    resent();
   };
 
   return (
@@ -24,17 +40,19 @@ const Reset: React.FC = () => {
             : 'Enter your email to receive instructions on how to reset your password.'}
         </ContentText>
         {isLinked ? (
-          <Button theme={theme.Primary}>Resent</Button>
+          <Button theme={theme.Primary} disable={isTimer} onClick={resent}>
+            {isTimer ? <Timer /> : 'Resent'}
+          </Button>
         ) : (
           <Form
             onSubmit={onSubmit}
             initialValues={{
-              login: '',
+              email: '',
             }}
             render={({ handleSubmit, hasValidationErrors }) => (
               <>
                 <Field
-                  name="login"
+                  name="email"
                   component={Input}
                   placeholder={'Email'}
                   isPassword={false}
@@ -46,7 +64,7 @@ const Reset: React.FC = () => {
                     disable={hasValidationErrors}
                     theme={theme.Primary}
                     onClick={handleSubmit}>
-                    Reset
+                    {'Reset'}
                   </Button>
                 </ButtonBox>
               </>

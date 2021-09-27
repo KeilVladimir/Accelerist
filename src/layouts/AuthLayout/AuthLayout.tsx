@@ -1,9 +1,9 @@
-import React from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 import background from 'assets/img/homedark.png';
 import { HeaderAuth } from 'pages/Auth/HeaderAuth';
 
-const AuthLayout: React.FC = ({ children }) => {
+const AuthLayout: FC = ({ children }) => {
   return (
     <>
       <HeaderAuth />

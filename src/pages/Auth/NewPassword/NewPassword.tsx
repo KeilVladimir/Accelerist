@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 import { Field, Form } from 'react-final-form';
 import { Input } from 'ui/Input';
@@ -6,10 +6,26 @@ import { required } from 'helpers/validate';
 import { Button } from 'ui/Button';
 import { AuthTitle } from 'ui/AuthTitle';
 import { theme } from 'ui/Button/themes';
+import { themes } from 'ui/Loader/themes';
+import { useDispatch, useSelector } from 'react-redux';
+import { changePassword } from 'store/ducks/session/actions';
+import { getLoader } from 'store/ducks/session/selectors';
+import { Loader } from 'ui/Loader';
 
-const NewPassword: React.FC = () => {
-  const onSubmit = (value: string) => {
-    console.log(value);
+interface NewPass {
+  password: string;
+}
+
+const NewPassword: FC = () => {
+  const dispatch = useDispatch();
+  const isLoader = useSelector(getLoader);
+  const onSubmit = (value: NewPass) => {
+    dispatch(
+      changePassword({
+        password: value.password,
+        passwordConfirmation: value.password,
+      }),
+    );
   };
 
   return (
@@ -36,7 +52,7 @@ const NewPassword: React.FC = () => {
                 disable={hasValidationErrors}
                 onClick={handleSubmit}
                 theme={theme.Primary}>
-                Done
+                {isLoader ? <Loader theme={themes.primary} /> : 'Done'}
               </Button>
             </ButtonBox>
           </>

@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { AuthInput as AuthInputProps } from 'types';
 import { EyeIcon } from '../icons/eye';
 import { EyeOffIcon } from '../icons/eyeOff';
 import { FieldRenderProps } from 'react-final-form';
 
 export interface Input extends FieldRenderProps<string> {
-  placeholder: string;
-  label: string;
-  isPassword: boolean;
-  isError: boolean;
+  placeholder?: string;
+  label?: string;
+  isPassword?: boolean;
+  isError?: boolean;
 }
 
-const AuthInput: React.FC<AuthInputProps> = ({
+const AuthInput: React.FC<Input> = ({
   meta,
   input,
   label,

@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import { AuthForm } from './components/AuthForm';
 import { AuthTitle } from 'ui/AuthTitle';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { getErrorIn, getErrorUp } from 'store/ducks/session/selectors';
+import { setErrorSignIn, setErrorSignUp } from 'store/ducks/session/actions';
 
-const Auth: React.FC<{ isRegister: boolean }> = ({ isRegister }) => {
+const Auth: FC<{ isRegister: boolean }> = ({ isRegister }) => {
+  const dispatch = useDispatch();
   const [isClick, setIsClick] = useState<boolean>(isRegister);
-
+  const isErrorIn = useSelector(getErrorIn);
+  const isErrorUp = useSelector(getErrorUp);
   const setClick = () => {
     setIsClick(!isClick);
+    dispatch(setErrorSignIn(false));
+    dispatch(setErrorSignUp(false));
   };
 
   return (
@@ -31,6 +38,14 @@ const Auth: React.FC<{ isRegister: boolean }> = ({ isRegister }) => {
           </Tab>
         </TabBox>
         <AuthForm isLogin={isClick} />
+        {isErrorIn && (
+          <ErrorMessage>Ошибка авторизации. Проверьте данные</ErrorMessage>
+        )}
+        {isErrorUp && (
+          <ErrorMessage>
+            Ошибка регистрации. Такой пользователь уже сущесвтует
+          </ErrorMessage>
+        )}
       </ContentBox>
     </AuthBox>
   );
@@ -80,5 +95,11 @@ const Tab = styled.button<{ backColor: string; color: string }>`
   flex: 1;
   height: 36px;
   color: ${(props) => props.color};
+`;
+
+const ErrorMessage = styled.p`
+  font-size: 12px;
+  line-height: 150%;
+  color: #f05658;
 `;
 export default Auth;

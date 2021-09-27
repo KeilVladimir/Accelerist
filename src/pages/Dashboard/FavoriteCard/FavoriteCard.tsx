@@ -1,14 +1,17 @@
-import React from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 
-const FavoriteCard: React.FC = () => {
+interface FavoriteProps {
+  name: string;
+}
+const FavoriteCard: FC<FavoriteProps> = ({ name }) => {
   return (
     <Wraper>
       <Container>
         <FavoriteInfo>
           <Avatar />
           <FavoriteInfoText>
-            <BlackText>Nasa</BlackText>
+            <BlackText>{name}</BlackText>
             <GreyText>Priority Ranking 12</GreyText>
           </FavoriteInfoText>
         </FavoriteInfo>
@@ -16,15 +19,7 @@ const FavoriteCard: React.FC = () => {
           <GreyText>CSR Focus</GreyText>
           <CategoryBox>
             <CategoryNameBox>
-              <BlackText>Health</BlackText>
-              <Dot />
-            </CategoryNameBox>
-            <CategoryNameBox>
-              <BlackText>Animals</BlackText>
-              <Dot />
-            </CategoryNameBox>
-            <CategoryNameBox>
-              <BlackText>Education</BlackText>
+              <BlackText>No information</BlackText>
             </CategoryNameBox>
           </CategoryBox>
         </FocusBox>
@@ -38,7 +33,8 @@ const Wraper = styled.div`
   max-width: 256px;
   height: auto;
   border-radius: 6px;
-  width: auto;
+  box-sizing: border-box;
+  width: 100%;
   background-color: #ffffff;
   margin-bottom: 15px;
   margin-right: 24px;
@@ -79,15 +75,6 @@ const FocusBox = styled.div``;
 const CategoryBox = styled.div`
   display: flex;
   margin-top: 8px;
-`;
-
-const Dot = styled.div`
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background-color: grey;
-  margin-left: 6px;
-  margin-right: 6px;
 `;
 
 const CategoryNameBox = styled.div`

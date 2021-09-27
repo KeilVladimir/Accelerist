@@ -1,40 +1,60 @@
-import React from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
+import { SavedListItem } from '../../../store/ducks/SavedList/types';
+import dayjs from 'dayjs';
 
-const RaceCure: React.FC = () => {
+const RaceCure: FC<SavedListItem> = ({
+  name,
+  lastAuthor,
+  prospectsAvailable,
+  filters,
+}) => {
+  const refactorDate = (date: string) => {
+    return dayjs(date).format('DD MMMM YYYY');
+  };
+  //Вывожу фильтры по три и в таком виде , т.к. в дизайне и в примере
+  //так выводят :)
   return (
     <RaceCureBox>
-      <TitleRace>Race for the Cure</TitleRace>
+      <TitleRace>{!name ? 'No name' : name}</TitleRace>
       <TitleFilters>Filters</TitleFilters>
       <FilterBox>
         <Filter>
-          <FilterName>Travel Industry</FilterName>
+          <FilterName>{filters?.q ? filters.q : 'No info'}</FilterName>
         </Filter>
         <Filter>
-          <FilterName>Travel Industry</FilterName>
+          <FilterName>{filters?.scope ? filters.scope : 'No info'}</FilterName>
+        </Filter>
+        <Filter>
+          <FilterName>
+            {'Gender: '}
+            {filters?.gender ? filters.gender : 'No info'}
+          </FilterName>
         </Filter>
       </FilterBox>
       <ProspectsBox>
         <Prospects>
           <TitleProspects>№ of Prospects Available</TitleProspects>
-          <Scale>230</Scale>
+          <Scale>{prospectsAvailable}</Scale>
         </Prospects>
         <Prospects>
-          <TitleProspects>№ of Prospects Available</TitleProspects>
-          <Scale>230</Scale>
+          <TitleProspects>№ of Contacts Pursued</TitleProspects>
+          <Scale>{prospectsAvailable}</Scale>
         </Prospects>
       </ProspectsBox>
       <UserBox>
         <UserInfo>
           <UserAvatar />
           <div>
-            <UserName>Jenny Wilson</UserName>
+            <UserName>
+              {lastAuthor.firstName + ' ' + lastAuthor.lastName}
+            </UserName>
             <GreyText>Owner</GreyText>
           </div>
         </UserInfo>
         <UserText>
           <GreyText>Last Activity</GreyText>
-          <Date>1 Jul 2020</Date>
+          <Date>{refactorDate(lastAuthor.updatedAt)}</Date>
         </UserText>
       </UserBox>
     </RaceCureBox>
@@ -47,6 +67,7 @@ const RaceCureBox = styled.div`
   box-sizing: border-box;
   width: 100%;
   background-color: #ffffff;
+  margin-bottom: 24px;
 `;
 
 const TitleRace = styled.h3`

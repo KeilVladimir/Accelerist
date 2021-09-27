@@ -1,37 +1,53 @@
-import React from 'react';
+import { FC, useEffect } from 'react';
 import { Form, Field } from 'react-final-form';
 import { Input } from 'ui/Input';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 import { validateEmail } from 'helpers/validate';
 import { SocialIcon } from 'ui/icons/social';
 import { CheckBox } from 'ui/CheckBox';
-import { required } from '../../../../../helpers/validate';
+import { required } from 'helpers/validate';
 import { Button } from 'ui/Button';
 import { Link } from 'react-router-dom';
-import { AuthRoute } from '../../../../../types';
+import { signInFetch, signUpFetch } from 'store/ducks/session/actions';
 import { theme } from 'ui/Button/themes';
-
-interface FormState {
-  login?: string;
-  password: string;
-  bool?: boolean;
-}
+import { themes as themeLoader } from 'ui/Loader/themes';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { getLoader, getToken } from 'store/ducks/session/selectors';
+import { Loader } from 'ui/Loader';
 
 interface AuthFormProps {
   isLogin?: boolean;
   setRender?: (value: string) => void;
 }
 
-const AuthForm: React.FC<AuthFormProps> = ({ isLogin }) => {
-  const onSubmit = (values: FormState) => {
-    console.log(values);
+const AuthForm: FC<AuthFormProps> = ({ isLogin }) => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const token = useSelector(getToken);
+  const isLoader = useSelector(getLoader);
+
+  useEffect(() => {
+    if (token !== '') {
+      history.push('/Dashboard');
+    }
+  }, [token]);
+
+  const onSubmit = (values: { email: string; password: string }) => {
+    if (!isLogin) {
+      dispatch(signInFetch(values));
+    } else {
+      dispatch(signUpFetch(values));
+    }
   };
+
   return (
     <>
       <Form
         onSubmit={onSubmit}
         initialValues={{
-          login: '',
+          email: '',
           password: '',
         }}
         render={({ handleSubmit, hasValidationErrors }) => (
@@ -39,7 +55,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ isLogin }) => {
             <FieldBox>
               <LoginBox>
                 <Field
-                  name="login"
+                  name="email"
                   component={Input}
                   placeholder={'Email'}
                   isPassword={false}
@@ -74,18 +90,24 @@ const AuthForm: React.FC<AuthFormProps> = ({ isLogin }) => {
                   <Field name={'bool'} component={CheckBox} type={'checkbox'} />
                   <CheckText>Remember</CheckText>
                 </CheckContainer>
-                <ForgotLink to={'/' + AuthRoute.reset}>
-                  Forgot Password?
-                </ForgotLink>
+                <ForgotLink to={'/auth/reset'}>Forgot Password?</ForgotLink>
               </PasswordSettings>
             )}
-            <Button
-              onClick={handleSubmit}
-              disable={hasValidationErrors}
-              theme={theme.Primary}>
-              {!isLogin ? 'Login' : 'Register'}
-            </Button>
-            <ContinueText>or continue with</ContinueText>
+            <LinkToBoard to={token && '/Dashboard'}>
+              <Button
+                onClick={handleSubmit}
+                disable={hasValidationErrors}
+                theme={theme.Primary}>
+                {isLoader ? (
+                  <Loader theme={themeLoader.primary} />
+                ) : isLogin ? (
+                  'Register'
+                ) : (
+                  'Login'
+                )}
+              </Button>
+            </LinkToBoard>
+            `<ContinueText>or continue with</ContinueText>
             <SocialLink>
               <SocialIcon />
             </SocialLink>
@@ -107,6 +129,10 @@ const FieldBox = styled.div`
 const RulesBox = styled.div`
   margin-top: 40px;
   margin-bottom: 16px;
+`;
+
+const LinkToBoard = styled(Link)`
+  text-decoration: none;
 `;
 
 const RulesText = styled.p`

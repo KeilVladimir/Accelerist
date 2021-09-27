@@ -1,11 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import { AuthInput } from 'types';
 
-const SearchInput: React.FC<AuthInput> = ({ input, placeholder }) => {
+import { FieldRenderProps } from 'react-final-form';
+export interface SearchInput extends FieldRenderProps<string> {
+  placeholder?: string;
+  label?: string;
+  isPassword?: boolean;
+  isError?: boolean;
+}
+
+const SearchInput: React.FC<SearchInput> = ({ input, placeholder }) => {
   return <Input placeholder={placeholder} onChange={input.onChange} />;
 };
 
+//этот компонент уберу как буду менюшкой заниматься, инпут будет один на весь проект
 const Input = styled.input`
   height: auto;
   flex: 1;

@@ -1,18 +1,21 @@
-import React from 'react';
+import { FC } from 'react';
 import { DarkLogo } from '../../ui/icons/logo_dark';
 import { SearchForm } from '../SearchForm';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-const Header: React.FC = () => {
+const Header: FC = () => {
   return (
     <HeaderBox>
       <ContentBox>
-        <LogoBox>
+        <Link to={'/Dashboard'}>
           <DarkLogo />
-        </LogoBox>
+        </Link>
         <nav>
           <List>
-            <Paragraph>Dashboard</Paragraph>
+            <Paragraph>
+              <CustomLink to={'/Dashboard'}>Dashboard</CustomLink>
+            </Paragraph>
             <Paragraph>Audience</Paragraph>
             <Paragraph>Pricing</Paragraph>
             <Paragraph>Prospecting</Paragraph>
@@ -65,7 +68,6 @@ const Paragraph = styled.li`
   white-space: nowrap;
   color: #122434;
 `;
-const LogoBox = styled.div``;
 
 const ContentBox = styled.div`
   @media only screen and (max-width: 1157px) {
@@ -77,7 +79,7 @@ const ContentBox = styled.div`
   width: 100%;
   align-items: center;
   box-sizing: border-box;
-  justify-content: center;
+  justify-content: space-between;
   padding-right: 60px;
 `;
 
@@ -105,4 +107,10 @@ const Name = styled.p`
   margin-left: 12px;
 `;
 
+const CustomLink = styled(Link)`
+  text-decoration: none;
+  list-style: none;
+  outline: none;
+  color: #122434;
+`;
 export default Header;

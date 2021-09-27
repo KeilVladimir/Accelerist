@@ -1,8 +1,8 @@
-import React from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 import { LogoIcon } from 'ui/icons/logo';
 
-const HeaderAuth: React.FC = () => {
+const HeaderAuth: FC = () => {
   return (
     <>
       <HeaderBox>

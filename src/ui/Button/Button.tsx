@@ -21,6 +21,9 @@ const Button: React.FC<ButtonProps> = ({
   );
 };
 const ButtonStyle = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   ${(props) => props.theme}
 
   :hover {

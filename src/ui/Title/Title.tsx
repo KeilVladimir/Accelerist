@@ -13,6 +13,7 @@ const TitleBox = styled.div`
   padding-top: 20px;
   padding-bottom: 20px;
   padding-left: 60px;
+  background-color: white;
 `;
 
 const TitleText = styled.h1`

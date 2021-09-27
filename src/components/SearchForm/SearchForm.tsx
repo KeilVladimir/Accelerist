@@ -1,10 +1,10 @@
-import React from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 import SearchInput from 'ui/SearchInput/SearchInput';
 import { Form, Field } from 'react-final-form';
 import Loupe from 'ui/icons/Loupe/Loupe';
 
-const SearchForm: React.FC = () => {
+const SearchForm: FC = () => {
   const onSubmit = (value: string) => {
     console.log(value);
   };

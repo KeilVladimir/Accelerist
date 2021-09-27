@@ -1,14 +1,19 @@
-import { FieldRenderProps } from 'react-final-form';
-
-export interface AuthInput extends FieldRenderProps<string> {
-  placeholder?: string;
-  label?: string;
-  isPassword?: boolean;
-  isError?: boolean;
+export interface RequestCompany {
+  page: number;
+  limit: number;
+  ethnicities?: [];
+  gender?: string;
+  q?: string;
+  industry?: [];
+  totalAnnualContributors?: string;
+  location?: string;
+  revenueMin?: number;
+  revenueMax?: number;
 }
 
 export enum AuthRoute {
-  reset = 'reset',
+  reset = '/reset',
   login = 'login',
-  newPassword = 'newPassword',
+  reg = 'reg',
+  change_password = 'change_password',
 }
