@@ -21,7 +21,7 @@ const Wraper = styled.div`
   display: flex;
   width: 100%;
   height: calc(100vh - 284px);
-  background-color: white;
+  background-color: ${(props) => props.theme.background.wh};
   justify-content: center;
   align-items: center;
 `;
@@ -36,13 +36,13 @@ const NoFavoriteBox = styled.div`
 const GreyText = styled.p`
   font-size: 12px;
   line-height: 150%;
-  color: #bfbfbf;
+  color: ${(props) => props.theme.text.gr};
   margin-top: 10px;
   margin-bottom: 32px;
 `;
 
 const BlackText = styled.p`
-  color: #122434;
+  color: ${(props) => props.theme.text.gr}
   font-size: 16px;
   line-height: 145%;
   font-weight: bold;

@@ -11,6 +11,7 @@ const Auth: FC<{ isRegister: boolean }> = ({ isRegister }) => {
   const [isClick, setIsClick] = useState<boolean>(isRegister);
   const isErrorIn = useSelector(getErrorIn);
   const isErrorUp = useSelector(getErrorUp);
+
   const setClick = () => {
     setIsClick(!isClick);
     dispatch(setErrorSignIn(false));
@@ -55,7 +56,7 @@ const AuthBox = styled.div`
   max-width: 454px;
   height: 100%;
   max-height: 640px;
-  background-color: #ffffff;
+  background-color: ${(props) => props.theme.background.wh};
   border-radius: 6px;
   margin: 70px 15px 20px;
   @media only screen and (max-width: 587px) {
@@ -66,7 +67,7 @@ const AuthBox = styled.div`
 
 const TabBox = styled.div`
   display: flex;
-  background-color: #f8f8f8;
+  background-color: ${(props) => props.theme.background.white};
   border: 1px black;
   padding: 2px 3.5px;
   align-items: center;
@@ -100,6 +101,6 @@ const Tab = styled.button<{ backColor: string; color: string }>`
 const ErrorMessage = styled.p`
   font-size: 12px;
   line-height: 150%;
-  color: #f05658;
+  color: ${(props) => props.theme.text.red};
 `;
 export default Auth;

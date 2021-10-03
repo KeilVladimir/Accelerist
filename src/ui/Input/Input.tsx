@@ -9,6 +9,7 @@ export interface Input extends FieldRenderProps<string> {
   label?: string;
   isPassword?: boolean;
   isError?: boolean;
+  isList?: boolean;
 }
 
 const AuthInput: React.FC<Input> = ({
@@ -17,12 +18,11 @@ const AuthInput: React.FC<Input> = ({
   label,
   placeholder,
   isPassword,
+  isList,
 }) => {
   const [isHiddenPassword, setIsHiddenPassword] = useState<boolean>(false);
 
-  const setHidden = () => {
-    setIsHiddenPassword(!isHiddenPassword);
-  };
+  const toggleHidden = () => setIsHiddenPassword((state) => !state);
 
   return (
     <>
@@ -34,10 +34,12 @@ const AuthInput: React.FC<Input> = ({
           onChange={input.onChange}
           isError={meta.error && meta.touched}
           placeholder={placeholder}
+          value={input.value}
+          isList={isList}
           type={isPassword && !isHiddenPassword ? 'password' : 'text'}
         />
         {isPassword && (
-          <EyeContainer onClick={setHidden}>
+          <EyeContainer onClick={toggleHidden}>
             {isHiddenPassword ? <EyeIcon /> : <EyeOffIcon />}
           </EyeContainer>
         )}
@@ -47,11 +49,12 @@ const AuthInput: React.FC<Input> = ({
   );
 };
 
-const InputStyle = styled.input<{ isError?: boolean }>`
+const InputStyle = styled.input<{ isError?: boolean; isList?: boolean }>`
+  ${(props) => props.theme}
   width: 100%;
   border-radius: 6px;
   height: 46px;
-  border: 1px solid;
+  border: ${(props) => (props.isList ? 'none' : '1px solid')};
   border-color: ${(props) => (props.isError ? '#F05658' : '#E8E8E8')};
   margin: 0;
   padding-left: 16px;
@@ -60,6 +63,7 @@ const InputStyle = styled.input<{ isError?: boolean }>`
   :focus {
     border-color: #2baee0;
   }
+  font-size: ${(props) => (props.isList ? '32px' : '12px')}; ;
 `;
 
 const InputBox = styled.div`

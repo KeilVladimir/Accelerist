@@ -6,7 +6,7 @@ const AuthTitle: React.FC = ({ children }) => {
 };
 
 const AuthTitleStyled = styled.h3`
-  color: #122434;
+  color: ${(props) => props.theme.text.bl};
   font-weight: 500;
   font-size: 24px;
   line-height: 148%;

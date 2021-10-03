@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom';
 import { Loader } from '../../ui/Loader';
 import { themes } from 'ui/Loader/themes/index';
 import { getLoader } from '../../store/ducks/company/selectors';
+import { Routes } from 'routes';
 
 const DashBoard: FC = () => {
   const token = useSelector(getToken);
@@ -42,7 +43,7 @@ const DashBoard: FC = () => {
             <div>
               <CategoryTitleBox>
                 <CategoryTitle>Prospecting Sessions</CategoryTitle>
-                <SeeMore to={'/Prospects'}>see more</SeeMore>
+                <SeeMore to={Routes.prospects}>see more</SeeMore>
               </CategoryTitleBox>
               <RaceCureContainer>
                 {savedList.items.map((list) => (
@@ -54,7 +55,7 @@ const DashBoard: FC = () => {
               <Box>
                 <FavoritesTitleBox>
                   <CategoryTitle>Favorites</CategoryTitle>
-                  <SeeMore to={'/Favorite'}>see more</SeeMore>
+                  <SeeMore to={Routes.favorite}>see more</SeeMore>
                 </FavoritesTitleBox>
                 <FavoritesBox>
                   {company.items.map((com) => (
@@ -65,7 +66,7 @@ const DashBoard: FC = () => {
               <Box>
                 <FavoritesTitleBox>
                   <CategoryTitle>Reports</CategoryTitle>
-                  <SeeMore to={'/Favorite'}>see more</SeeMore>
+                  <SeeMore to={Routes.favorite}>see more</SeeMore>
                 </FavoritesTitleBox>
                 <Reports />
               </Box>
@@ -73,12 +74,13 @@ const DashBoard: FC = () => {
             <div>
               <CategoryTitleBox>
                 <CategoryTitle>Prospect Navigator</CategoryTitle>
-                <SeeMore to={'/Favorite'}>see more</SeeMore>
+                <SeeMore to={Routes.favorite}>see more</SeeMore>
               </CategoryTitleBox>
               <NavigatorBox>
                 <ProspectNavigator />
                 <ProspectNavigator />
                 <ProspectNavigator />
+
                 <ProspectNavigator />
               </NavigatorBox>
             </div>
@@ -107,7 +109,7 @@ const RaceCureContainer = styled.div`
 const Wrapper = styled.div`
   width: auto;
   padding-left: 60px;
-  background: #f9f9f9;
+  background: ${(props) => props.theme.background.secondGr};
   padding-top: 32px;
 `;
 
@@ -123,7 +125,7 @@ const FavoritesBox = styled.div`
 const CategoryTitle = styled.h3`
   font-weight: 600;
   font-size: 24px;
-  color: #122434;
+  color: ${(props) => props.theme.text.bl};
   margin-bottom: 16px;
 `;
 
@@ -139,7 +141,7 @@ const Box = styled.div`
 `;
 
 const SeeMore = styled(Link)`
-  color: #2baee0;
+  color: ${(props) => props.theme.background.blue};
   font-size: 12px;
   line-height: 150%;
   text-decoration: none;

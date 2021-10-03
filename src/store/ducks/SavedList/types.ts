@@ -1,14 +1,22 @@
 export const enum ActionTypes {
   SET_SAVED_LIST = 'SET_SAVED_LIST',
   GET_SAVED_LIST_REQUEST = 'GET_SAVED_LIST_REQUEST',
+  SET_SAVED_LIST_ID = 'SET_SAVED_LIST_ID',
+  GET_SAVED_LIST_REQUEST_ID = 'GET_SAVED_LIST_REQUEST_ID',
   LOADER = 'LOADER',
   ERROR = 'ERROR',
+  EXCEL_REQUEST = 'EXCEL_REQUEST',
+  EXCEL = 'EXCEL',
+  SAVE = 'SAVE',
+  UPDATE_REQUEST = 'UPDATE_REQUEST',
+  UPDATE = 'UPDATE',
+  DELETE = 'DELETE',
 }
 
 export interface SavedListItem {
   id: string;
   name: string;
-  filters: {
+  filters?: {
     q: string;
     scope: string;
     gender: string;
@@ -47,9 +55,16 @@ export interface SavedListMeta {
   currentPage: string;
 }
 
+export interface File {
+  name: string;
+  file: string;
+}
+
 export interface SavedList {
   items: SavedListItem[];
   meta?: SavedListMeta;
-  loader: boolean;
+  isLoader: boolean;
   error: string;
+  actualList: SavedListItem;
+  file: File;
 }

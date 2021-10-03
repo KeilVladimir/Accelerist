@@ -39,8 +39,8 @@ const Favorites: FC = () => {
                 <CurrentNubmer>
                   <a
                     onClick={() => {
-                      if (page > 16) {
-                        setPage(page - 1);
+                      if (page < 16) {
+                        setPage((state) => state - 1);
                       }
                     }}>
                     <ChevronLeft />
@@ -50,7 +50,8 @@ const Favorites: FC = () => {
                   </CurrentNubmerText>
                   <a
                     onClick={() => {
-                      if (page !== company.meta?.totalPages) setPage(page + 1);
+                      if (page !== company.meta?.totalPages)
+                        setPage((state) => state + 1);
                     }}>
                     <ChevronRight />
                   </a>
@@ -75,8 +76,7 @@ const Favorites: FC = () => {
 
 const FavoritesBox = styled.div`
   width: 100%;
-  background-color: #f9f9f9;
-
+  background-color: ${(props) => props.theme.background.wh};
   padding-left: 60px;
   padding-top: 32px;
 `;
@@ -92,7 +92,7 @@ const NumberCompany = styled.p`
   font-weight: 500;
   font-size: 16px;
   line-height: 145%;
-  color: #122434;
+  color: ${(props) => props.theme.text.bl};
 `;
 const Container = styled.div`
   display: flex;
@@ -110,7 +110,7 @@ const CurrentNubmer = styled.div`
 const CurrentNubmerText = styled.div`
   font-size: 12px;
   line-height: 150%;
-  color: #122434;
+  color: ${(props) => props.theme.text.bl};
   display: flex;
   margin-right: 19px;
   margin-left: 19px;

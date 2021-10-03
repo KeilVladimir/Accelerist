@@ -5,15 +5,19 @@ import store from './store';
 import { StrictMode } from 'react';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor } from './store';
+import { ThemeProvider } from 'styled-components';
+import primary from './ constants/themes';
 
 function App() {
   return (
     <StrictMode>
-      <Provider store={store}>
-        <PersistGate persistor={persistor}>
-          <IndexRoutes />
-        </PersistGate>
-      </Provider>
+      <ThemeProvider theme={primary}>
+        <Provider store={store}>
+          <PersistGate persistor={persistor}>
+            <IndexRoutes />
+          </PersistGate>
+        </Provider>
+      </ThemeProvider>
     </StrictMode>
   );
 }

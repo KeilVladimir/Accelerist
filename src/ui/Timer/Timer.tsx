@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
@@ -7,16 +7,24 @@ import { setTimer } from '../../store/ducks/session/actions';
 export const Timer: React.FC = () => {
   const [time, setTime] = useState<number>(59);
   const dispatch = useDispatch();
+  const timerRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (time === 1) {
       dispatch(setTimer(false));
     }
-    time !== 0 &&
-      setTimeout(() => {
-        setTime(time - 1);
-      }, 1000);
-  }, [time]);
+    timerRef.current = +setInterval(() => {
+      if (time > 1) {
+        setTime((state) => state - 1);
+      }
+    }, 1000);
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+    };
+  }, [time, dispatch]);
 
   return <TimerText>00:{time}</TimerText>;
 };

@@ -75,7 +75,7 @@ export const Prospects: FC = () => {
                 </FilterBox>
               </SortBox>
               {cards.items.length !== 0 && (
-                <CurrentNubmer>
+                <CurrentNumber>
                   <a
                     onClick={() => {
                       if (params.page > 1) {
@@ -94,7 +94,7 @@ export const Prospects: FC = () => {
                     }}>
                     <ChevronRight />
                   </a>
-                </CurrentNubmer>
+                </CurrentNumber>
               )}
             </InfoBox>
             <ProspectsBox>
@@ -111,7 +111,7 @@ export const Prospects: FC = () => {
 
 const Wraper = styled.div`
   width: 100%;
-  background-color: #f9f9f9;
+  background-color: ${(props) => props.theme.background.secondGr};
   height: 100%;
   padding-left: 60px;
   padding-right: 60px;
@@ -137,7 +137,7 @@ const InfoBox = styled.div`
 const CurrentNubmerText = styled.div`
   font-size: 12px;
   line-height: 150%;
-  color: #122434;
+  color: ${(props) => props.theme.text.bl};
   display: flex;
   margin-right: 19px;
   margin-left: 19px;
@@ -167,7 +167,7 @@ const TitleBox = styled.div`
   margin-right: 22px;
 `;
 
-const CurrentNubmer = styled.div`
+const CurrentNumber = styled.div`
   display: flex;
 `;
 

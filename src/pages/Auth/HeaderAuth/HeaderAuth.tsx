@@ -15,7 +15,7 @@ const HeaderAuth: FC = () => {
 const HeaderBox = styled.div`
   width: 100%;
   height: 80px;
-  background-color: #122434;
+  background-color: ${(props) => props.theme.text.bl};
   display: flex;
   align-items: center;
   justify-content: center;

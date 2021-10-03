@@ -12,14 +12,16 @@ import { Prospects } from '../pages/Prospects';
 import { CorporateProfile } from '../pages/CorporateProfile';
 import { Search } from '../pages/Search';
 import { PrivateRoute } from './PrivateRoute';
+import { SavedList } from '../pages/SavedList';
 
-enum Routes {
+export enum Routes {
   dashboard = '/Dashboard',
   auth = '/auth',
   favorite = '/Favorite',
   prospects = '/Prospects',
   profile = '/Profile',
   search = '/Search',
+  list = '/SavedList',
 }
 
 const IndexRoutes = () => {
@@ -31,18 +33,11 @@ const IndexRoutes = () => {
         <MainLayout>
           <PrivateRoute>
             <Route path={Routes.dashboard} component={Dashboard} />
-          </PrivateRoute>
-          <PrivateRoute>
             <Route path={Routes.favorite} component={Favorites} />
-          </PrivateRoute>
-          <PrivateRoute>
             <Route path={Routes.prospects} component={Prospects} />
-          </PrivateRoute>
-          <PrivateRoute>
             <Route path={Routes.profile} component={CorporateProfile} />
-          </PrivateRoute>
-          <PrivateRoute>
             <Route path={Routes.search} component={Search} />
+            <Route path={Routes.list} component={SavedList} />
           </PrivateRoute>
         </MainLayout>
       </Switch>

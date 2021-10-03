@@ -1,27 +1,29 @@
 import { useEffect, useState, FC } from 'react';
 import { Form, Field } from 'react-final-form';
-import { Input } from '../../ui/Input';
+import { Input } from 'ui/Input';
 import styled from 'styled-components';
-import { FiltersIcon } from '../../ui/icons/filters';
-import { LoupeIcon } from '../../ui/icons/Loupe';
-import { RequestCompany } from '../../types';
+import { FiltersIcon } from 'ui/icons/filters';
+import { LoupeIcon } from 'ui/icons/Loupe';
+import RequestCompany from 'types';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCompanyRequest } from '../../store/ducks/company/actions';
-import { UploadIcon } from '../../ui/icons/upload';
-import { FolderIcon } from '../../ui/icons/folder';
-import { MailIcon } from '../../ui/icons/mail';
-import { ChevronLeft } from '../../ui/icons/chevronLeft';
-import ChevronRight from '../../ui/icons/chevronRight/chevronRight';
+import { getCompanyRequest } from 'store/ducks/company/actions';
+import { UploadIcon } from 'ui/icons/upload';
+import { FolderIcon } from 'ui/icons/folder';
+import { MailIcon } from 'ui/icons/mail';
+import { ChevronLeft } from 'ui/icons/chevronLeft';
+import ChevronRight from 'ui/icons/chevronRight/chevronRight';
 import { getCompanys, getLoader } from '../../store/ducks/company/selectors';
 import { FavoriteCard } from '../Favorites/components/FavoriteCard';
-import { Loader } from '../../ui/Loader';
-import themes from '../../ui/Loader/themes';
+import { Loader } from 'ui/Loader';
+import themes from 'ui/Loader/themes';
+import { saveListAction } from '../../store/ducks/SavedList/actions';
+import { FiltersForm } from './components/filtersForm';
 
 const Search: FC = () => {
   const isLoader = useSelector(getLoader);
   const company = useSelector(getCompanys);
   const dispatch = useDispatch();
-
+  const [isOpenFilters, setIsOpenFilters] = useState<boolean>(false);
   const [params, setParams] = useState<RequestCompany>({
     page: 1,
     limit: 12,
@@ -29,6 +31,10 @@ const Search: FC = () => {
 
   const onSubmit = (values: { q: string }) => {
     setParams({ ...params, q: values.q });
+  };
+
+  const toggleFilters = () => {
+    setIsOpenFilters((state) => !state);
   };
 
   useEffect(() => {
@@ -49,7 +55,7 @@ const Search: FC = () => {
           render={({ handleSubmit }) => (
             <FieldBox>
               <Field name={'q'} component={Input} placeholder={'Search'} />
-              <FiltersBox>
+              <FiltersBox onClick={toggleFilters}>
                 <FiltersIcon />
               </FiltersBox>
               <LoupeBox onClick={handleSubmit}>
@@ -60,6 +66,13 @@ const Search: FC = () => {
         />
       </HeaderSearch>
       <Wraper>
+        {isOpenFilters && (
+          <FiltersForm
+            setParams={setParams}
+            params={params}
+            setIsOpenFilters={setIsOpenFilters}
+          />
+        )}
         <AllCompanyText>
           Found {company.meta?.totalItems} companies
         </AllCompanyText>
@@ -73,7 +86,8 @@ const Search: FC = () => {
                 <ConnectionText>Save List</ConnectionText>
               </Connection>
               <Connection>
-                <IconBox>
+                <IconBox
+                  onClick={() => dispatch(saveListAction({ filters: params }))}>
                   <UploadIcon />
                 </IconBox>
                 <ConnectionText>Export to Excel</ConnectionText>
@@ -135,18 +149,22 @@ const LoaderBox = styled.div`
   align-items: center;
 `;
 const Wraper = styled.div`
-  width: auto;
-  background-color: #f9f9f9;
+  @media only screen and (max-width: 1440px) {
+    padding-left: 32px;
+  }
+  @media only screen and (max-width: 780px) {
+    padding-left: 16px;
+  }
+  background-color: ${(props) => props.theme.background.wh};
   height: auto;
   padding-left: 60px;
-  padding-right: 60px;
   padding-top: 32px;
 `;
 
 const FieldBox = styled.div`
   position: relative;
   width: 100%;
-  max-width: 715px;
+  max-width: 496px;
 `;
 
 const FiltersBox = styled.button`
@@ -181,12 +199,12 @@ const HeaderSearch = styled.div`
   width: auto;
   justify-content: start;
   padding: 24px 0;
-  background-color: white;
+  background-color: ${(props) => props.theme.background.wh};
   padding-left: 60px;
 `;
 
 const TitleText = styled.p`
-  color: #122434;
+  color: ${(props) => props.theme.text.bl};
   font-weight: 600;
   font-size: 32px;
   line-height: 150%;
@@ -235,13 +253,13 @@ const ContainerForCards = styled.div`
 const ConnectionText = styled.p`
   font-size: 12px;
   line-height: 150%;
-  color: #122434;
+  color: ${(props) => props.theme.text.bl};
 `;
 
 const CurrentNubmerText = styled.div`
   font-size: 12px;
   line-height: 150%;
-  color: #122434;
+  color: ${(props) => props.theme.text.bl};
   display: flex;
   margin-right: 19px;
   margin-left: 19px;
@@ -257,7 +275,7 @@ const InfoBox = styled.div`
 const AllCompanyText = styled.p`
   font-size: 16px;
   line-height: 145%;
-  color: #122434;
+  color: ${(props) => props.theme.text.bl};
   margin-bottom: 27px;
   font-weight: bold;
 `;

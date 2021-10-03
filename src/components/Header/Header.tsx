@@ -1,17 +1,24 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { DarkLogo } from '../../ui/icons/logo_dark';
 import { SearchForm } from '../SearchForm';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { MenuIcon } from '../../ui/icons/menu';
+import { MobileMenu } from '../../ui/icons/menu/mobile';
 
 const Header: FC = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen((state) => !state);
+  };
   return (
     <HeaderBox>
       <ContentBox>
         <Link to={'/Dashboard'}>
           <DarkLogo />
         </Link>
-        <nav>
+        <Nav>
           <List>
             <Paragraph>
               <CustomLink to={'/Dashboard'}>Dashboard</CustomLink>
@@ -22,16 +29,30 @@ const Header: FC = () => {
             <Paragraph>ROI</Paragraph>
             <Paragraph>Upgrade Membership</Paragraph>
           </List>
-        </nav>
+        </Nav>
         <SearchForm />
         <ProfileBox>
           <Avatar />
           <Name>Name</Name>
         </ProfileBox>
+        <BurgerBox onClick={toggleMenu}>
+          <MenuIcon />
+        </BurgerBox>
       </ContentBox>
+      {isMenuOpen && <MobileMenu closeMenu={toggleMenu} />}
     </HeaderBox>
   );
 };
+const BurgerBox = styled.a`
+  @media only screen and (max-width: 780px) {
+    display: flex;
+  }
+  display: none;
+  align-items: center;
+  justify-content: center;
+  margin-left: 40px;
+`;
+
 const HeaderBox = styled.div`
   width: 100%;
   height: 80px;
@@ -42,6 +63,11 @@ const HeaderBox = styled.div`
   justify-content: center;
 `;
 
+const Nav = styled.nav`
+  @media only screen and (max-width: 780px) {
+    display: none;
+  }
+`;
 const List = styled.ul`
   @media only screen and (max-width: 1157px) {
     margin-left: 20px;
@@ -84,9 +110,13 @@ const ContentBox = styled.div`
 `;
 
 const ProfileBox = styled.div`
+  @media only screen and (max-width: 780px) {
+    display: none;
+  }
   @media only screen and (max-width: 890px) {
     margin-left: 20px;
   }
+
   display: flex;
   align-items: center;
   justify-content: center;

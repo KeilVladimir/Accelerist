@@ -9,4 +9,3 @@ export enum paths {
   dislike = '/api/v1/companies/',
   getCompany = '/api/v1/companies',
 }
-console.log('2');

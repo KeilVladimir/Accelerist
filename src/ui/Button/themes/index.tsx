@@ -36,7 +36,7 @@ export const theme = {
     color: 'white',
   },
   Secondary: {
-    width: '244px',
+    width: '100%',
     border: '1px solid #2BAEE0',
     height: '36px',
     color: 'black',
@@ -76,6 +76,19 @@ export const theme = {
     },
     disabled: {
       border: '1px solid #EAEAEA',
+    },
+  },
+  simple: {
+    border: '1px solid #EAEAEA',
+    width: '146px',
+    height: '46px',
+    borderRadius: '6px',
+    color: '#122434',
+    hover: {
+      border: ' 1px solid #BFBFBF',
+    },
+    focus: {
+      border: '1px solid #F05658',
     },
   },
 };

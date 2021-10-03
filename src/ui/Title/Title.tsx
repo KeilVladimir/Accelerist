@@ -17,7 +17,7 @@ const TitleBox = styled.div`
 `;
 
 const TitleText = styled.h1`
-  color: #122434;
+  color: ${(props) => props.theme.text.bl};
   font-weight: 600;
   font-size: 32px;
   line-height: 150%;

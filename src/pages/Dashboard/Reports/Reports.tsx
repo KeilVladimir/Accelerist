@@ -65,7 +65,7 @@ const Reports: FC = () => {
 
 const Wraper = styled.div`
   padding: 24px;
-  background-color: #ffffff;
+  background-color: ${(props) => props.theme.background.wh};
   width: 100%;
   max-width: 536px;
   box-sizing: border-box;
@@ -83,20 +83,20 @@ const ReportText = styled.p`
   font-weight: 500;
   font-size: 16px;
   line-height: 145%;
-  color: #122434;
+  color: ${(props) => props.theme.text.bl};
   margin-bottom: 16px;
 `;
 
 const Prospects = styled.div`
   width: 100%;
-  background: #f9f9f9;
+  background: ${(props) => props.theme.background.wh};
   max-width: 235px;
   padding-top: 5px;
   padding-bottom: 4px;
   margin-right: 18px;
 `;
 const Scale = styled.p`
-  color: #122434;
+  color: ${(props) => props.theme.text.bl};
   font-weight: 500;
   font-size: 24px;
   margin: 0;
@@ -105,7 +105,7 @@ const Scale = styled.p`
 
 const TitleProspects = styled.p`
   font-size: 12px;
-  color: #737373;
+  color: ${(props) => props.theme.text.gr};
   margin: 0;
   padding-bottom: 10px;
   text-align: center;
@@ -115,14 +115,14 @@ const TopMatchedTitle = styled.p`
   font-weight: 500;
   font-size: 16px;
   line-height: 145%;
-  color: #122434;
+  color: ${(props) => props.theme.text.bl};
   margin-bottom: 16px;
 `;
 
 const TopMatched = styled.div`
   width: 83px;
   height: 83px;
-  background-color: grey;
+  background-color: ${(props) => props.theme.text.gr};
   border-radius: 6px;
   margin-right: 12px;
 `;
@@ -145,14 +145,14 @@ const LastLoginBox = styled.div`
 const Avatar = styled.div`
   width: 32px;
   height: 32px;
-  background-color: grey;
+  background-color: ${(props) => props.theme.text.gr};
   border-radius: 50%;
 `;
 const LastLoginInfo = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom-color: #eeeeee;
+  border-bottom-color: ${(props) => props.theme.border};
   border-bottom: 1px;
   margin-left: 10px;
   width: 100%;
@@ -162,11 +162,11 @@ const BlackText = styled.p`
   font-weight: 500;
   font-size: 12px;
   line-height: 150%;
-  color: #122434;
+  color: ${(props) => props.theme.text.bl};
 `;
 
 const GreyText = styled.p`
-  color: #737373;
+  color: ${(props) => props.theme.text.gr};
   font-weight: 500;
   font-size: 12px;
   line-height: 150%;

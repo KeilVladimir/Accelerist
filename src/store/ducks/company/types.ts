@@ -4,8 +4,13 @@ export const enum ActionTypes {
   SET_COMPANY = 'SET_COMPANY',
   GET_COMPANY_REQUEST = 'GET_COMPANY_REQUEST',
   DISLIKE = 'DISLIKE',
+  LIKE = 'LIKE',
   LOADER = 'LOADER',
   ERROR = 'ERROR',
+  DISLIKE_REDUCER = 'DISLIKE_REDUCER',
+  LIKE_ACTION = 'LIKE_ACTION',
+  GET_COMPANY_ID_REQUEST = ' GET_COMPANY_ID_REQUEST',
+  GET_COMPANY_ID = ' GET_COMPANY_ID',
 }
 
 export interface Company {
@@ -37,7 +42,7 @@ export interface Company {
   similarCompanies: string[];
   favoriteCompanies: favorite[];
   score: 50;
-  like: true;
+  like: boolean;
 }
 
 interface favorite {
@@ -57,6 +62,7 @@ interface Meta {
 export interface AllCompany {
   items: Company[];
   meta?: Meta;
-  loader: boolean;
+  isLoading: boolean;
   error: string;
+  actualCompany?: Company;
 }

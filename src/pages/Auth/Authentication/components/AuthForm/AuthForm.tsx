@@ -138,19 +138,19 @@ const LinkToBoard = styled(Link)`
 const RulesText = styled.p`
   text-align: center;
   font-size: 12px;
-  color: #737373;
+  color: ${(props) => props.theme.text.gr};
   box-sizing: border-box;
 `;
 
 const ForgotLink = styled(Link)`
   text-decoration: none;
   font-size: 12px;
-  color: #737373;
+  color: ${(props) => props.theme.text.gr};
   cursor: pointer;
 `;
 
 const RulesLink = styled.a`
-  color: #122434;
+  color: ${(props) => props.theme.text.bl};
   text-decoration: none;
   font-weight: 600;
   cursor: pointer;
@@ -159,7 +159,7 @@ const RulesLink = styled.a`
 const ContinueText = styled.p`
   text-align: center;
   font-size: 12px;
-  color: #737373;
+  color: ${(props) => props.theme.text.gr};
   margin-top: 32px;
   @media only screen and (max-width: 587px) {
     margin-top: 16px;
@@ -201,7 +201,7 @@ const CheckContainer = styled.div`
 
 const CheckText = styled.p`
   margin-left: 11px;
-  color: #122434;
+  color: ${(props) => props.theme.text.bl};
   font-size: 12px;
 `;
 

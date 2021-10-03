@@ -2,13 +2,23 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { ActionTypes } from './types';
 import {
   getFavoriteCompanyRequest,
-  dislikeAction,
   loaderAction,
   getCompanyRequest,
   setCompany,
   setError,
+  dislikeReducer,
+  dislikeRequest,
+  likeRequest,
+  likeAction,
+  getCompanyIdRequest,
+  getCompanyIdAction,
 } from './actions';
-import { getCompany, getFavoriteCompany } from '../../../api/company';
+import {
+  getCompany,
+  getCompanyId,
+  getFavoriteCompany,
+  like,
+} from '../../../api/company';
 import { setFavoriteCompanyAction } from './actions';
 import { dislike } from '../../../api/company';
 
@@ -19,6 +29,8 @@ export function* watcherCompany() {
   );
   yield takeLatest(ActionTypes.GET_COMPANY_REQUEST, getCompanyFetch);
   yield takeLatest(ActionTypes.DISLIKE, dislikeCompanyFetch);
+  yield takeLatest(ActionTypes.LIKE, likeCompanyFetch);
+  yield takeLatest(ActionTypes.GET_COMPANY_ID_REQUEST, getCompanyIdFetch);
 }
 
 export function* getFavoriteCompanyFetch({
@@ -30,8 +42,11 @@ export function* getFavoriteCompanyFetch({
     yield put(setFavoriteCompanyAction(data));
     yield put(loaderAction(false));
   } catch (e) {
-    const error = (e as Error).message;
-    yield put(setError(error));
+    if (e instanceof Error) {
+      yield put(setError(e.message));
+    }
+  } finally {
+    yield put(loaderAction(false));
   }
 }
 
@@ -42,21 +57,52 @@ export function* getCompanyFetch({
     yield put(loaderAction(true));
     const { data } = yield call(getCompany, payload);
     yield put(setCompany(data));
-    yield put(loaderAction(false));
   } catch (e) {
-    const error = (e as Error).message;
-    yield put(setError(error));
+    if (e instanceof Error) {
+      yield put(setError(e.message));
+    }
+  } finally {
+    yield put(loaderAction(false));
   }
 }
 
 export function* dislikeCompanyFetch({
   payload,
-}: ReturnType<typeof dislikeAction>) {
+}: ReturnType<typeof dislikeRequest>) {
   try {
+    yield put(dislikeReducer(payload));
     yield call(dislike, payload);
-    yield put(getFavoriteCompanyRequest({ page: 1, limit: 15 }));
+    // yield put(getFavoriteCompanyRequest({ page: 1, limit: 15 }));
   } catch (e) {
-    const error = (e as Error).message;
-    yield put(setError(error));
+    if (e instanceof Error) {
+      yield put(setError(e.message));
+    }
+  }
+}
+
+export function* likeCompanyFetch({ payload }: ReturnType<typeof likeRequest>) {
+  try {
+    yield put(likeAction(payload));
+    yield call(like, payload);
+  } catch (e) {
+    if (e instanceof Error) {
+      yield put(setError(e.message));
+    }
+  }
+}
+
+export function* getCompanyIdFetch({
+  payload,
+}: ReturnType<typeof getCompanyIdRequest>) {
+  try {
+    yield put(loaderAction(true));
+    const { data } = yield call(getCompanyId, payload);
+    yield put(getCompanyIdAction(data));
+  } catch (e) {
+    if (e instanceof Error) {
+      yield put(setError(e.message));
+    }
+  } finally {
+    yield put(loaderAction(false));
   }
 }

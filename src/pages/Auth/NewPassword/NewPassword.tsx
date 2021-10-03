@@ -70,7 +70,7 @@ const NewPasswordBox = styled.div`
     margin-bottom: 20px;
   }
   max-width: 454px;
-  background: rgb(255, 255, 255);
+  background: ${(props) => props.theme.background.wh};
   border-radius: 6px;
   padding: 40px;
   margin-top: 72px;
@@ -81,7 +81,7 @@ const NewPasswordBox = styled.div`
 `;
 const ContentText = styled.p`
   font-size: 16px;
-  color: #122434;
+  color: ${(props) => props.theme.text.bl};
   margin-bottom: 30px;
   line-height: 155%;
 `;

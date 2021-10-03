@@ -35,7 +35,7 @@ const Wraper = styled.div`
   border-radius: 6px;
   box-sizing: border-box;
   width: 100%;
-  background-color: #ffffff;
+  background-color: ${(props) => props.theme.background.wh};
   margin-bottom: 15px;
   margin-right: 24px;
 `;
@@ -52,8 +52,8 @@ const FavoriteInfoText = styled.div`
 const Avatar = styled.div`
   width: 48px;
   height: 48px;
-  background-color: grey;
-  border: 1px solid #e8e8e8;
+  background-color: ${(props) => props.theme.text.gr};
+  border: 1px solid ${(props) => props.theme.border};
   box-sizing: border-box;
   border-radius: 6px;
 `;
@@ -61,13 +61,13 @@ const Avatar = styled.div`
 const BlackText = styled.p`
   font-weight: 500;
   font-size: 12px;
-  color: #122434;
+  color: ${(props) => props.theme.text.bl};
 `;
 
 const GreyText = styled.p`
   font-weight: 500;
   font-size: 12px;
-  color: #737373;
+  color: ${(props) => props.theme.text.gr};
 `;
 
 const FocusBox = styled.div``;

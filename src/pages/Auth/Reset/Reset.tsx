@@ -97,7 +97,7 @@ const ContainerReset = styled.div`
 
 const ResetBox = styled.div`
   max-width: 454px;
-  background: rgb(255, 255, 255);
+  background: ${(props) => props.theme.background.wh};
   border-radius: 6px;
   padding: 40px;
 `;

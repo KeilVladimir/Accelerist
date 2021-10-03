@@ -1,15 +1,23 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import styled from 'styled-components';
 import { CitiesIcon } from 'ui/icons/cities';
-import { Button } from '../../../../ui/Button';
-import { theme } from '../../../../ui/Button/themes';
-import { LikeIcon } from '../../../../ui/icons/like';
-import { Company } from '../../../../store/ducks/company/types';
+import { Button } from 'ui/Button';
+import { theme } from 'ui/Button/themes';
+import { LikeIcon } from 'ui/icons/like';
+import { Company } from 'store/ducks/company/types';
 import { useDispatch } from 'react-redux';
-import { dislikeAction } from '../../../../store/ducks/company/actions';
+import { dislikeRequest, likeRequest } from 'store/ducks/company/actions';
 import { Link } from 'react-router-dom';
+import { HeartNullIcon } from 'ui/icons/heartNull';
+import { Check } from '../../../Search/components/Check';
 
-const FavoriteCard: FC<Company> = ({
+interface CardProps extends Company {
+  isList?: boolean;
+  setDeleteIds?: (state: Array<string>) => void;
+  deleteIds?: Array<string>;
+}
+
+const FavoriteCard: FC<CardProps> = ({
   name,
   state,
   city,
@@ -17,15 +25,44 @@ const FavoriteCard: FC<Company> = ({
   phone,
   revenue,
   id,
+  like,
+  setDeleteIds,
+  deleteIds,
+  isList,
 }) => {
   const dispatch = useDispatch();
-
+  const [isCheck, setIsCheck] = useState<boolean>(false);
   const dislike = () => {
-    dispatch(dislikeAction(id));
+    if (like) {
+      dispatch(dislikeRequest(id));
+    } else {
+      dispatch(likeRequest(id));
+    }
   };
 
+  const changeDeleteIds = () => {
+    setIsCheck((state) => !state);
+    if (setDeleteIds && deleteIds) {
+      let newDeleteIds: Array<string> = deleteIds;
+      if (!isCheck) {
+        newDeleteIds?.push(id);
+      } else {
+        newDeleteIds = newDeleteIds?.filter((item) => {
+          if (item !== id) {
+            return item;
+          }
+        });
+      }
+      setDeleteIds(newDeleteIds);
+    }
+  };
   return (
     <Wrapper>
+      {isList && (
+        <CheckContainer onClick={changeDeleteIds}>
+          <Check isCheck={isCheck} />
+        </CheckContainer>
+      )}
       <FavoriteBox>
         <Container1>
           <Logo>
@@ -37,11 +74,11 @@ const FavoriteCard: FC<Company> = ({
           </PriorityRanking>
         </Container1>
         <Container2>
-          <LinkToProfile to={'/Profile'}>
+          <LinkToProfile to={{ pathname: '/Profile', state: { id: id } }}>
             <BlackText bottom={'12px'}>{name}</BlackText>
           </LinkToProfile>
           <GreyText bottom={'4px'}>
-            {street + ' ' + city + ' ' + ' ' + state}
+            {street + ' ' + city + ' ' + state}
           </GreyText>
           <GreyText bottom={'28px'}>{phone}</GreyText>
           <InfoBox>
@@ -55,12 +92,14 @@ const FavoriteCard: FC<Company> = ({
             </Revenue>
           </InfoBox>
           <ButtonBox>
-            <ButtonLikeBox>
-              <Button theme={theme.like} onClick={dislike}>
-                <LikeIcon />
+            <ButtonLikeBox onClick={dislike}>
+              <Button theme={theme.like}>
+                {like ? <LikeIcon /> : <HeartNullIcon />}
               </Button>
             </ButtonLikeBox>
-            <Button theme={theme.Secondary}>Profile</Button>
+            <ButtonProfile>
+              <Button theme={theme.Secondary}>Profile</Button>
+            </ButtonProfile>
           </ButtonBox>
         </Container2>
       </FavoriteBox>
@@ -70,13 +109,19 @@ const FavoriteCard: FC<Company> = ({
 
 const Wrapper = styled.div`
   padding: 26px 32px;
-  background: #ffffff;
+  background: ${(props) => props.theme.background.wh};
   border-radius: 6px;
   max-width: 536px;
   margin-bottom: 24px;
   margin-right: 24px;
   box-sizing: border-box;
   height: auto;
+`;
+
+const CheckContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 `;
 
 const FavoriteBox = styled.div`
@@ -86,14 +131,17 @@ const FavoriteBox = styled.div`
 const Container1 = styled.div`
   width: 168px;
   height: 216px;
-  border: 1px solid #e8e8e8;
+  border: 1px solid ${(props) => props.theme.border};
   margin-right: 16px;
+`;
+const ButtonProfile = styled.div`
+  width: 244px;
 `;
 
 const Logo = styled.div`
   height: 156px;
   width: 168px;
-  border-bottom: 1px solid rgb(232, 232, 232);
+  border-bottom: 1px solid ${(props) => props.theme.border};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -107,7 +155,7 @@ const PriorityRanking = styled.div`
 `;
 
 const BlackText = styled.p<{ top?: string; bottom?: string }>`
-  color: black;
+  color: ${(props) => props.theme.text.bl};
   font-size: 16px;
   line-height: 145%;
   font-weight: 500;
@@ -116,7 +164,7 @@ const BlackText = styled.p<{ top?: string; bottom?: string }>`
 `;
 
 const GreyText = styled.p<{ top?: string; bottom?: string }>`
-  color: #737373;
+  color: ${(props) => props.theme.text.gr};
   font-size: 12px;
   line-height: 150%;
   margin-top: ${(props) => props.top};
@@ -133,13 +181,13 @@ const InfoBox = styled.div`
   width: 100%;
   margin-bottom: 24px;
   max-width: 288px;
-  border-bottom: 1px solid rgb(232, 232, 232);
+  border-bottom: 1px solid ${(props) => props.theme.border};
 `;
 
 const Focus = styled.div`
   width: 100%;
   padding-bottom: 12px;
-  border-right: 1px solid rgb(232, 232, 232);
+  border-right: 1px solid ${(props) => props.theme.border};
 `;
 
 const Revenue = styled.div`

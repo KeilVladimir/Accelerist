@@ -5,9 +5,7 @@ import { Form, Field } from 'react-final-form';
 import Loupe from 'ui/icons/Loupe/Loupe';
 
 const SearchForm: FC = () => {
-  const onSubmit = (value: string) => {
-    console.log(value);
-  };
+  const onSubmit = () => {};
 
   return (
     <FormBox>
@@ -34,6 +32,9 @@ const SearchForm: FC = () => {
 };
 
 const FormBox = styled.div`
+  @media only screen and (max-width: 780px) {
+    display: none;
+  }
   width: 100%;
   max-width: 350px;
   height: auto;
