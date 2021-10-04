@@ -25,6 +25,7 @@ export const CorporateProfile: FC = () => {
   return (
     <Wraper>
       <Title>Organization Profile</Title>
+      <Title>Organization Profile</Title>
       <HeaderProfile>
         <InfoLeft>
           <Avatar />
